@@ -8,6 +8,9 @@ const ArticleSchema = new Schema({
     abstract: String,
     content: String,
     date: { type: Date, default: Date.now},
+    Category : [{ type: Schema.Types.ObjectId, ref: 'Category'}]
 });
 
-export default ArticleSchema;
+const Article = mongoose.model('Article', ArticleSchema);
+
+export default Article;
