@@ -15,5 +15,6 @@ describe('test class Connection', () => {
 
         //Asset
         expect(typeof mongo).toBe('object');
+        expect(mongo instanceof Connection).toBe(true);
     })
 }); 
