@@ -1,3 +1,5 @@
+import ConnectionError from '../Errors/ConnectionError';
+
 class Connection {
 
     username;
@@ -7,6 +9,10 @@ class Connection {
     database;
 
     constructor(logDB) {
+        if(typeof logDB !== 'object'){
+            throw new ConnectionError("Params isnt an object.");
+        }
+
         const { username, password, host, port, database } = logDB;
         this.username = username;
         this.password = password;
