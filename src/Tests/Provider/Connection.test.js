@@ -31,4 +31,21 @@ describe('test class Connection', () => {
             expect(err.name).toBe("ConnectionError");
         }
     })
+
+    test('throw error if the argument havent good key object', () => {
+        const paramForConnection = {
+            username: 'raphael',
+            password: 'password',
+            host: '127.0.0.1',
+            databasee : 27017,
+            port : 'blog'
+        };
+
+        try{
+            new Connection(paramForConnection);
+        }catch(err) {
+            console.log(err.message)
+            expect(err.message).toBe("Error in key object");
+        }
+    })
 }); 
