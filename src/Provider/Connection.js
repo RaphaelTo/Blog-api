@@ -12,6 +12,10 @@ class Connection {
         if(typeof logDB !== 'object'){
             throw new ConnectionError("Params isnt an object.");
         }
+        
+        if(!this.checkKeyForInit(logDB)){
+            throw new ConnectionError("Error in key object")
+        }
 
         const { username, password, host, port, database } = logDB;
         this.username = username;
@@ -19,6 +23,19 @@ class Connection {
         this.host = host;
         this.port = port;
         this.database = database;
+    }
+
+    checkKeyForInit(logDB) {
+        const goodValue = ['username', 'password', 'host', 'port', 'database'];
+        const checkValue = Object.keys(logDB);
+        let boolCheck = true;
+
+        goodValue.map((resultValueArray) => {
+            let findElement = checkValue.find(element => element === resultValueArray);
+            if(findElement === undefined) boolCheck = false;
+        })
+
+        return boolCheck;
     }
 
 }
