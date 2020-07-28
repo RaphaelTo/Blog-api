@@ -13,8 +13,22 @@ describe('test class Connection', () => {
         //Act
         const mongo = new Connection(paramForConnection);
 
-        //Asset
+        //Assert
         expect(typeof mongo).toBe('object');
         expect(mongo instanceof Connection).toBe(true);
+    })
+
+    test('throw error if the argument isnt object',  () => {
+        //Arrange
+        const paramForConnection = "throwError";
+        
+        try{
+        //Act
+            new Connection(paramForConnection);
+        }catch (err){
+        //Assert
+            expect(err.message).toBe("Params isnt an object.");
+            expect(err.name).toBe("ConnectionError");
+        }
     })
 }); 
