@@ -1,6 +1,8 @@
 import Connection from '../../Provider/Connection';
 
 describe('test class Connection', () => {
+    const mongoose = jest.genMockFromModule('mongoose');
+
     test('instanciation Connection', () => {
         //Arrange
         const paramForConnection = {
@@ -46,6 +48,26 @@ describe('test class Connection', () => {
         }catch(err) {
             console.log(err.message)
             expect(err.message).toBe("Error in key object");
+            expect(err.name).toBe("ConnectionError");
         }
+    })
+
+    test('connection at mongodb', () => {
+        //Arrange
+        const paramForConnection = {
+            username: 'raphael',
+            password: 'password',
+            host: '127.0.0.1',
+            database : 'blog',
+            port : 27017
+        };
+        
+        const mongo = new Connection(paramForConnection);
+        //Act
+        const connectDB = mongo.connect();
+        //mongo.connect();
+
+        //Assert
+        expect(mongoose.connect()).toHaveBeenCalled(1);
     })
 }); 
