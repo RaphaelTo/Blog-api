@@ -52,7 +52,7 @@ describe('test class Connection', () => {
         }
     })
 
-    test('connection at mongodb', () => {
+    test('connection at mongodb', async () => {
         //Arrange
         const paramForConnection = {
             username: 'raphael',
@@ -64,10 +64,10 @@ describe('test class Connection', () => {
         
         const mongo = new Connection(paramForConnection);
         //Act
-        const connectDB = mongo.connect();
+        await mongo.connect();
         //mongo.connect();
 
         //Assert
-        expect(mongoose.connect()).toHaveBeenCalled(1);
+        expect(await mongoose.connect('')).toHaveBeenCalled(1);
     })
 }); 
