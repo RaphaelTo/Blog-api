@@ -40,7 +40,7 @@ class Connection {
     }
 
     async connect() {
-        return await mongoose.connect(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}`,{ useNewUrlParser: true });
+        await mongoose.connect(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}`,{ useNewUrlParser: true, useUnifiedTopology: true });
     }
 
 }
