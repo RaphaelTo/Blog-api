@@ -1,7 +1,9 @@
 import Connection from '../../Provider/Connection';
+import mongoose from 'mongoose';
+
+jest.mock('mongoose');
 
 describe('test class Connection', () => {
-    const mongoose = jest.genMockFromModule('mongoose');
 
     test('instanciation Connection', () => {
         //Arrange
@@ -63,11 +65,13 @@ describe('test class Connection', () => {
         };
         
         const mongo = new Connection(paramForConnection);
-        //Act
-        await mongo.connect();
-        //mongo.connect();
+        const mockMongoose = mongoose.connect.mockReturnValue({});
 
+        //Act
+        expect.assertions(2);
+        const connectionMethodConnect = mongo.connect();
         //Assert
-        expect(await mongoose.connect('')).toHaveBeenCalled(1);
+        expect(mockMongoose).toHaveBeenCalledTimes(1);
+        await expect(typeof connectionMethodConnect).toBe('object')
     })
 }); 
