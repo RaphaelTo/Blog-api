@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import ConnectionError from '../Errors/ConnectionError';
 
 class Connection {
@@ -36,6 +37,10 @@ class Connection {
         })
 
         return boolCheck;
+    }
+
+    async connect() {
+        return await mongoose.connect(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}`,{ useNewUrlParser: true });
     }
 
 }
