@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
-    _id: mongoose.Types.ObjectId(),
     title: String,
     abstract: { type: String, maxlength: 140},
     content: String,
