@@ -15,7 +15,7 @@ class Connection {
         }
         
         if(!this.checkKeyForInit(logDB)){
-            throw new ConnectionError("Error in key object")
+            throw new ConnectionError("Error in key object");
         }
 
         const { username, password, host, port, database } = logDB;
@@ -34,13 +34,13 @@ class Connection {
         goodValue.map((resultValueArray) => {
             let findElement = checkValue.find(element => element === resultValueArray);
             if(findElement === undefined) boolCheck = false;
-        })
+        });
 
         return boolCheck;
     }
 
     async connect() {
-        await mongoose.connect(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}`,{ useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(`mongodb://${this.username}:${this.password}@${this.host}:${this.port}/${this.database}?authSource=admin`,{ useNewUrlParser: true, useUnifiedTopology: true });
     }
 
 }
