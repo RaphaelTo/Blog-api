@@ -4,15 +4,17 @@ import mongoose from 'mongoose';
 
 class ArticleController {
 
-    mongoose;
+    model;
 
-    constructor(mongooseConnection) {
-        if(!mongooseConnection.prototype instanceof mongoose.Model) {
+    constructor(modelMongoose) {
+        if(!modelMongoose.prototype instanceof mongoose.Model) {
             throw new ArticleControllerError('ArticleControllerError: this isnt an mongoose model instance');
         }
 
-        this.mongoose = mongooseConnection;
+        this.model = modelMongoose;
     }
+
+
 }
 
 export default ArticleController;
