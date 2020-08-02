@@ -14,7 +14,7 @@ describe('test ArticleController class', () => {
         //Arrange
         const mockMongoose = mongoose.model.mockReturnValue('Article');
         
-        expect(mockMongoose).toHaveBeenCalledTimes(1);
+        expect(mockMongoose).toHaveBeenCalledTimes(0);
         
         try {
           new ArticleController(mockMongoose);
@@ -118,7 +118,17 @@ describe('test ArticleController class', () => {
         expect(mockModelMongooseWithQuery.find).toHaveBeenCalled();
     });
 
-    test('method getAllArticle return 0 value', async () => {
+    test('method getAllArticle return 0 article found', async () => {
+        //Arrange
+        const mockModelMongooseWithQuery = {
+            find: jest.fn().mockResolvedValue([])
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
 
+        //Act
+        expect.assertions(1);
+        const getAllArticle = await article.getAllArticle();
+        //Assert
+        expect(getAllArticle.result).toBe('0 article found');
     });
 });
