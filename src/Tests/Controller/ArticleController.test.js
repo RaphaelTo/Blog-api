@@ -8,7 +8,7 @@ describe('test ArticleController class', () => {
 
     beforeEach(() => {
         jest.resetAllMocks();
-    })
+    });
 
     test('throw error if param isnt mongoose instance', () => {
         //Arrange
@@ -117,4 +117,4 @@ describe('test ArticleController class', () => {
         await expect(getAllArticle).resolves.toEqual(structure(mockReturnAllArticle));
         expect(mockModelMongooseWithQuery.find).toHaveBeenCalled();
     })
-})
+});
