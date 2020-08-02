@@ -116,5 +116,9 @@ describe('test ArticleController class', () => {
         //Assert
         await expect(getAllArticle).resolves.toEqual(structure(mockReturnAllArticle));
         expect(mockModelMongooseWithQuery.find).toHaveBeenCalled();
-    })
+    });
+
+    test('method getAllArticle return 0 value', async () => {
+
+    });
 });
