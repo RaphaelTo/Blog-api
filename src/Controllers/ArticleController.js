@@ -1,5 +1,5 @@
-import Article from '../Models/Article';
 import ArticleControllerError from '../Errors/ArticleControllerError';
+import { successResponse, errorResponse } from '../responseJson';
 import mongoose from 'mongoose';
 
 class ArticleController {
@@ -14,6 +14,10 @@ class ArticleController {
         this.model = modelMongoose;
     }
 
+    async getAllArticle(){
+        const getAllArticle = await this.model.find({});
+        return successResponse(getAllArticle);
+    }
 
 }
 
