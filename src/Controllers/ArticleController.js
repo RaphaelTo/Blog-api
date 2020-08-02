@@ -16,7 +16,9 @@ class ArticleController {
 
     async getAllArticle(){
         const getAllArticle = await this.model.find({});
-        return successResponse(getAllArticle);
+        const lengthArticleZero = '0 article found';
+
+        return successResponse(getAllArticle.length <= 0 ? lengthArticleZero : getAllArticle);
     }
 
 }
