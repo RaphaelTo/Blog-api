@@ -1,6 +1,7 @@
 import CategoryController from '../../Controllers/CategoryController';
 import mongoose from 'mongoose';
 import expect from 'expect';
+import CategoryControllerError from '../../Errors/CategoryControllerError';
 
 jest.mock('mongoose');
 
@@ -185,7 +186,7 @@ describe('test CategoryController class', () => {
         const createCategory = category.createCategory({name: 'front-end'});
         //Assert
         await expect(typeof createCategory).toBe('object');
-    })
+    });
 
     test('method "addCategory" add a cat', async () => {
         const mockModelMongooseWithQuery = {
@@ -198,5 +199,19 @@ describe('test CategoryController class', () => {
         
         expect(mockModelMongooseWithQuery.create).toHaveBeenCalledTimes(1);
         expect(createCat.result).toEqual({name: 'back-end'});
+    });
+
+    test('method addCategory throw an error if the object dont got "name" key', async () => {
+        //Arrange
+        const mockModelMongooseWithQuery = {
+            create: jest.fn().mockRejectedValue(new CategoryControllerError('CategoryControllerError: Error in the key object'))
+        }
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        //Act     
+        
+        expect.assertions(1);
+        const addCat = await category.createCategory({nome: 'front-end'})
+        
+        expect(addCat.messageError.message).toBe('CategoryControllerError: Error in the key object')
     })
 });
