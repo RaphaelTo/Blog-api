@@ -13,8 +13,8 @@ class CategoryController {
         this.model = modelMongoose;
     }
 
-    getAllCategory() {
-        return successResponse({})
+    async getAllCategory() {
+        return successResponse(await this.model.find({}))
     }
 }
 
