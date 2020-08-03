@@ -102,18 +102,18 @@ describe('test CategoryController class', () => {
         expect(mockModelMongooseWithQuery.find).toHaveBeenCalled();
     });
 
-    test('method getAllArticle return 0 article found', async () => {
+    test('method getAllCategory return 0 article found', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
             find: jest.fn().mockResolvedValue([])
         };
-        const article = new ArticleController(mockModelMongooseWithQuery);
+        const category = new CategoryController(mockModelMongooseWithQuery);
 
         //Act
         expect.assertions(1);
-        const getAllArticle = await article.getAllArticle();
+        const getAllCategory = await category.getAllCategory();
         //Assert
-        expect(getAllArticle.result).toBe('0 article found');
+        expect(getAllCategory.result).toBe('0 category found');
     });
 
     test('method getArticleById return an object', async () => {
