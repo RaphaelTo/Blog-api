@@ -116,45 +116,37 @@ describe('test CategoryController class', () => {
         expect(getAllCategory.result).toBe('0 category found');
     });
 
-    test('method getArticleById return an object', async () => {
+    test('method getCategoryById return an object', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
             findById: jest.fn().mockResolvedValue({})
         };
         const ID = 'a';
-        const article = new ArticleController(mockModelMongooseWithQuery);
+        const category = new CategoryController(mockModelMongooseWithQuery);
 
         //Act
         expect.assertions(1);
-        const getArticleById = await article.getArticleById(ID);
+        const getCategoryById = await category.getCategoryById(ID);
 
         //Assert
-        expect(typeof getArticleById).toBe('object');
+        expect(typeof getCategoryById).toBe('object');
     });
 
-    test('method getArticleByID return article', async () => {
+    test('method getCategoryByID return article', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
             findById: jest.fn().mockResolvedValue({
                 "_id":"a",
-                "Category":[],
-                "title":"A",
-                "abstract":"a",
-                "content":"aaa",
-                "date":{"$date":"2020-07-30T16:02:00.791Z"}
+                "name": "front-end"
             })
         };
         const ID = 'a';
-        const article = new ArticleController(mockModelMongooseWithQuery);
+        const category = new ArticleController(mockModelMongooseWithQuery);
         const returnValue = {
             type : "success",
             result: {
                 "_id":"a",
-                "Category":[],
-                "title":"A",
-                "abstract":"a",
-                "content":"aaa",
-                "date":{"$date":"2020-07-30T16:02:00.791Z"}
+                "name": "front-end"
             }
         };
 
