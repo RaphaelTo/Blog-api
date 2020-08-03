@@ -176,14 +176,27 @@ describe('test CategoryController class', () => {
     test('method addCategory return an object', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
-            create: jest.fn().mockRejectedValue('a'),
+            create: jest.fn().mockResolvedValue({name: 'front-end'}),
         };
         const category = new CategoryController(mockModelMongooseWithQuery);
+        
         //Act
-
         expect.assertions(1);
         const createCategory = category.createCategory({name: 'front-end'});
         //Assert
         await expect(typeof createCategory).toBe('object');
+    })
+
+    test('method "addCategory" add a cat', async () => {
+        const mockModelMongooseWithQuery = {
+            create: jest.fn().mockResolvedValue({name : 'back-end'}),
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+
+        expect.assertions(2);
+        const createCat = await category.createCategory({name: 'back-end'});
+        
+        expect(mockModelMongooseWithQuery.create).toHaveBeenCalledTimes(1);
+        expect(createCat.result).toEqual({name: 'back-end'});
     })
 });
