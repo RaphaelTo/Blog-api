@@ -1,6 +1,7 @@
 import CategoryControllerError from '../Errors/CategoryControllerError';
 import { successResponse, errorResponse } from '../responseJson';
 import mongoose from 'mongoose';
+import Category from '../Models/Category';
 
 class CategoryController {
     model;
@@ -32,8 +33,8 @@ class CategoryController {
         return response;
     }
 
-    async createCategory(article) {
-        return {}
+    async createCategory(category) {
+        return successResponse(await this.model.create(category));
     }
 }
 
