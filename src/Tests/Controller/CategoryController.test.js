@@ -132,7 +132,7 @@ describe('test CategoryController class', () => {
         expect(typeof getCategoryById).toBe('object');
     });
 
-    test('method getCategoryByID return article', async () => {
+    test('method getCategoryByID return category', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
             findById: jest.fn().mockResolvedValue({
@@ -141,7 +141,7 @@ describe('test CategoryController class', () => {
             })
         };
         const ID = 'a';
-        const category = new ArticleController(mockModelMongooseWithQuery);
+        const category = new CategoryController(mockModelMongooseWithQuery);
         const returnValue = {
             type : "success",
             result: {
@@ -152,9 +152,9 @@ describe('test CategoryController class', () => {
 
         //Act
         expect.assertions(1);
-        const getArticleById = await article.getArticleById(ID);
+        const getCategoryById = await category.getCategoryById(ID);
         //Assert
-        expect(getArticleById).toEqual(returnValue);
+        expect(getCategoryById).toEqual(returnValue);
     });
 
     test('method getArticleByID return errorID if article not found', async () => {
