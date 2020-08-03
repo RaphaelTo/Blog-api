@@ -21,6 +21,10 @@ class ArticleController {
         return successResponse(getAllArticle.length <= 0 ? lengthArticleZero : getAllArticle);
     }
 
+    async getArticleById() {
+        return {};
+    }
+
 }
 
 export default ArticleController;
