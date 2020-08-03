@@ -64,44 +64,28 @@ describe('test CategoryController class', () => {
         const mockReturnAllArticle = [
             {
                 "_id":"a",
-                "Category":[],
-                "title":"A",
-                "abstract":"a",
-                "content":"aaa",
-                "date":{"$date":"2020-07-30T16:02:00.791Z"}
+                "name":"front-end",
             },
             {
-                "_id":"a",
-                "Category":[],
-                "title":"A",
-                "abstract":"a",
-                "content":"aaa",
-                "date":{"$date":"2020-07-30T16:02:00.791Z"}
+                "_id":"b",
+                "name":"back-end",
             },
         ];
 
         const mockModelMongooseWithQuery = {
              find: jest.fn().mockResolvedValue([
-                 {
-                     "_id":"a",
-                     "Category":[],
-                     "title":"A",
-                     "abstract":"a",
-                     "content":"aaa",
-                     "date":{"$date":"2020-07-30T16:02:00.791Z"}
-                 },
-                 {
-                     "_id":"a",
-                     "Category":[],
-                     "title":"A",
-                     "abstract":"a",
-                     "content":"aaa",
-                     "date":{"$date":"2020-07-30T16:02:00.791Z"}
-                 },
+                {
+                    "_id":"a",
+                    "name":"front-end",
+                },
+                {
+                    "_id":"b",
+                    "name":"back-end",
+                },
              ])
          };
 
-        const article = new ArticleController(mockModelMongooseWithQuery);
+        const category = new CategoryController(mockModelMongooseWithQuery);
         const structure = (resultMock) => {
              return {
                  type : "success",
@@ -111,10 +95,10 @@ describe('test CategoryController class', () => {
 
         //Act
         expect.assertions(2);
-        const getAllArticle = article.getAllArticle();
+        const getAllCategory = category.getAllCategory();
 
         //Assert
-        await expect(getAllArticle).resolves.toEqual(structure(mockReturnAllArticle));
+        await expect(getAllCategory).resolves.toEqual(structure(mockReturnAllArticle));
         expect(mockModelMongooseWithQuery.find).toHaveBeenCalled();
     });
 
