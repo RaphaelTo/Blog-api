@@ -21,8 +21,8 @@ class ArticleController {
         return successResponse(getAllArticle.length <= 0 ? lengthArticleZero : getAllArticle);
     }
 
-    async getArticleById() {
-        return {};
+    async getArticleById(ID) {
+        return successResponse(await this.model.findById(ID));
     }
 
 }
