@@ -14,7 +14,10 @@ class CategoryController {
     }
 
     async getAllCategory() {
-        return successResponse(await this.model.find({}))
+        const getAllCategory = await this.model.find({});
+        const lengthCategoryZero = '0 category found';
+
+        return successResponse(getAllCategory.length > 0 ? await this.model.find({}) : lengthCategoryZero);
     }
 }
 
