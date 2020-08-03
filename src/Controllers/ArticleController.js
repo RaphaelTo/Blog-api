@@ -22,7 +22,16 @@ class ArticleController {
     }
 
     async getArticleById(ID) {
-        return successResponse(await this.model.findById(ID));
+        let response;
+
+        try{
+            const getUserById = await this.model.findById(ID);
+            response = successResponse(getUserById);
+        }catch (e) {
+            response = errorResponse(new ArticleControllerError('ArticleControllerError: ID not found'))
+        }
+
+        return response;
     }
 
 }
