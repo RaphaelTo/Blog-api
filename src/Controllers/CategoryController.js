@@ -21,8 +21,15 @@ class CategoryController {
     }
 
     async getCategoryById(ID) {
-        const getCategoryById = await this.model.findById(ID);
-        return successResponse(getCategoryById);
+        let response;
+
+        try{
+            response = successResponse(await this.model.findById(ID));
+        }catch (e){
+            response = errorResponse(new CategoryController('CategoryControllerError: ID not found'))
+        }
+        
+        return response;
     }
 }
 
