@@ -19,6 +19,10 @@ class CategoryController {
 
         return successResponse(getAllCategory.length > 0 ? await this.model.find({}) : lengthCategoryZero);
     }
+
+    async getCategoryById(ID) {
+        return {};
+    }
 }
 
 export default CategoryController;
