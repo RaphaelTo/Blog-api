@@ -59,7 +59,7 @@ describe('test CategoryController class', () => {
         expect(getAllArticle).toEqual(Object.keys(structure));
     });
 
-    test('method getAllArticle return same value that mock', async () => {
+    test('method getAllCategory return same value that mock', async () => {
         //Arrange
         const mockReturnAllArticle = [
             {
