@@ -31,6 +31,10 @@ class CategoryController {
         
         return response;
     }
+
+    async createCategory(article) {
+        return {}
+    }
 }
 
 export default CategoryController;
