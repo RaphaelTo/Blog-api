@@ -1,7 +1,6 @@
 import ArticleController from '../../Controllers/ArticleController';
 import mongoose from 'mongoose';
 import expect from 'expect';
-import ArticleControllerError from "../../Errors/ArticleControllerError";
 
 jest.mock('mongoose');
 
