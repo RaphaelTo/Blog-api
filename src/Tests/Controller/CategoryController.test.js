@@ -157,17 +157,17 @@ describe('test CategoryController class', () => {
         expect(getCategoryById).toEqual(returnValue);
     });
 
-    test('method getArticleByID return errorID if article not found', async () => {
+    test('method getCategoryByID return errorID if category not found', async () => {
        //Arrange
        const mockModelMongooseWithQuery = {
            findById: jest.fn().mockRejectedValue(null)
        };
        const ID = 'b';
-       const article = new ArticleController(mockModelMongooseWithQuery);
+       const category = new CategoryController(mockModelMongooseWithQuery);
 
        expect.assertions(0);
        try{
-        await article.getArticleById(ID);
+        await category.getCategoryById(ID);
        }catch (e) {
            expect(e).reject.toThrow(/ERROR/)
        }
