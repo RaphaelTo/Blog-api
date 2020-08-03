@@ -172,4 +172,18 @@ describe('test CategoryController class', () => {
            expect(e).reject.toThrow(/ERROR/)
        }
     });
+
+    test('method addCategory return an object', async () => {
+        //Arrange
+        const mockModelMongooseWithQuery = {
+            create: jest.fn().mockRejectedValue('a'),
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        //Act
+
+        expect.assertions(1);
+        const createCategory = category.createCategory({name: 'front-end'});
+        //Assert
+        await expect(typeof createCategory).toBe('object');
+    })
 });
