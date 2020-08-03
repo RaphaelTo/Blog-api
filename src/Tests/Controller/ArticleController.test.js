@@ -1,6 +1,7 @@
 import ArticleController from '../../Controllers/ArticleController';
 import mongoose from 'mongoose';
 import expect from 'expect';
+import ArticleControllerError from "../../Errors/ArticleControllerError";
 
 jest.mock('mongoose');
 
@@ -179,5 +180,21 @@ describe('test ArticleController class', () => {
         const getArticleById = await article.getArticleById(ID);
         //Assert
         expect(getArticleById).toEqual(returnValue);
-    })
+    });
+
+    test('method getArticleByID return errorID if article not found', async () => {
+       //Arrange
+       const mockModelMongooseWithQuery = {
+           findById: jest.fn().mockRejectedValue(null)
+       };
+       const ID = 'b';
+       const article = new ArticleController(mockModelMongooseWithQuery);
+
+       expect.assertions(0);
+       try{
+        await article.getArticleById(ID);
+       }catch (e) {
+           expect(e).reject.toThrow(/ERROR/)
+       }
+    });
 });
