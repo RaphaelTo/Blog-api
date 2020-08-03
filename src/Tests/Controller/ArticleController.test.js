@@ -131,4 +131,26 @@ describe('test ArticleController class', () => {
         //Assert
         expect(getAllArticle.result).toBe('0 article found');
     });
+
+    test('method getArticleById return an object', async () => {
+        //Arrange
+        const mockModelMongooseWithQuery = {
+            findById: jest.fn().mockResolvedValue({})
+        };
+        const ID = 'a';
+        const article = new ArticleController(mockModelMongooseWithQuery);
+
+        //Act
+        expect.assertions(1);
+        const getArticleById = await article.getArticleById(ID);
+
+        //Assert
+        expect(typeof getArticleById).toBe('object');
+    })
+
+    test('method getArticleBy return article', async () => {
+        //Arrange
+        //Act
+        //Assert
+    })
 });
