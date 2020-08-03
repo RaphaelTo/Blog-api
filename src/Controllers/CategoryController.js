@@ -21,7 +21,8 @@ class CategoryController {
     }
 
     async getCategoryById(ID) {
-        return {};
+        const getCategoryById = await this.model.findById(ID);
+        return successResponse(getCategoryById);
     }
 }
 
