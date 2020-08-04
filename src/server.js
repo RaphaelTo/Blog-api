@@ -17,6 +17,7 @@ mongo.connect();
 
 //Import Route
 import { anonymeRouteArticle } from "./Routes/ArticleRoute";
+import { anonymeRouteCategory } from "./Routes/CategoryRoute";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(`${process.env.URL}/article`,anonymeRouteArticle);
+app.use(`${process.env.URL}/article`, anonymeRouteArticle);
+app.use(`${process.env.URL}/category`, anonymeRouteCategory);
 
 app.listen(process.env.PORT, () => console.log(`SERVER IS RUNNING ON PORT ${process.env.PORT}`));
