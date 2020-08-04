@@ -217,4 +217,17 @@ describe('test CategoryController class', () => {
         
         expect(addCat.messageError.message).toBe('CategoryControllerError: Error in the key object');
     })
+
+    test('method deleteCategory return an object', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndDelete: jest.fn().mockResolvedValue({})
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = 'a';
+
+        expect.assertions(1);
+        const deleteCat = await category.deleteCategoryById('a');
+
+        expect(typeof deleteCat).toBe('object');
+    })
 });
