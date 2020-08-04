@@ -46,6 +46,10 @@ class CategoryController {
         }
         return successResponse(deleteCat);
     }
+
+    async updateCategoryById(ID) {
+        return {}
+    }
 }
 
 export default CategoryController;
