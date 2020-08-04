@@ -1,7 +1,6 @@
 import CategoryControllerError from '../Errors/CategoryControllerError';
 import { successResponse, errorResponse } from '../responseJson';
 import mongoose from 'mongoose';
-import Category from '../Models/Category';
 
 class CategoryController {
     model;
