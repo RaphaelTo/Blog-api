@@ -58,7 +58,7 @@ class CategoryController {
             return errorResponse(new CategoryControllerError('CategoryControllerError: ID doesnt exist'))
         }
 
-        return {};
+        return successResponse(updateCat);
     }
 }
 
