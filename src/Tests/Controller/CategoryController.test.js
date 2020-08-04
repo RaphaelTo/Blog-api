@@ -303,5 +303,19 @@ describe('test CategoryController class', () => {
         const updateCat = await category.updateCategoryById(ID, newCat);
 
         expect(updateCat.messageError.message).toBe('CategoryControllerError: key has incorrect');
+    });
+
+    test('method updateCat return id updated', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({_id: 'a', name:'last name'})
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = "a";
+        const newCat = {name: 'new name'};
+
+        expect.assertions(1);
+        const updateCat = await category.updateCategoryById(ID, newCat);
+
+        expect(updateCat.result).toEqual({_id: 'a', name:'last name'});
     })
 });
