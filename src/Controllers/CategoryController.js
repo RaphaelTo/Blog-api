@@ -48,12 +48,17 @@ class CategoryController {
     }
 
     async updateCategoryById(ID, newCat) {
+        const { name } = newCat;
+        if(name === undefined) {
+            return errorResponse(new CategoryControllerError('CategoryControllerError: key has incorrect'))
+        }
+
         const updateCat = await this.model.findByIdAndUpdate(ID, newCat);
         if(!updateCat) {
             return errorResponse(new CategoryControllerError('CategoryControllerError: ID doesnt exist'))
         }
 
-        return {}
+        return {};
     }
 }
 
