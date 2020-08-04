@@ -177,41 +177,44 @@ describe('test CategoryController class', () => {
     test('method addCategory return an object', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
-            create: jest.fn().mockResolvedValue({name: 'front-end'}),
+            save: jest.fn().mockResolvedValue({name: 'front-end'}),
+            name: jest.fn().mockReturnValue({name:'front-end'})
         };
         const category = new CategoryController(mockModelMongooseWithQuery);
         
         //Act
         expect.assertions(1);
-        const createCategory = category.createCategory({name: 'front-end'});
+        const createCategory = category.createCategory();
         //Assert
         await expect(typeof createCategory).toBe('object');
     });
 
     test('method "addCategory" add a cat', async () => {
         const mockModelMongooseWithQuery = {
-            create: jest.fn().mockResolvedValue({name : 'back-end'}),
+            save: jest.fn().mockResolvedValue({name: 'front-end'}),
+            name: jest.fn().mockReturnValue({name: 'front-end'})
         };
         const category = new CategoryController(mockModelMongooseWithQuery);
 
         expect.assertions(2);
-        const createCat = await category.createCategory({name: 'back-end'});
-        
-        expect(mockModelMongooseWithQuery.create).toHaveBeenCalledTimes(1);
-        expect(createCat.result).toEqual({name: 'back-end'});
+        const createCat = await category.createCategory();
+
+        expect(mockModelMongooseWithQuery.save).toHaveBeenCalledTimes(1);
+        expect(createCat.result).toEqual({name: 'front-end'});
     });
 
     test('method addCategory throw an error if the object dont got "name" key', async () => {
         //Arrange
         const mockModelMongooseWithQuery = {
-            create: jest.fn().mockRejectedValue(new CategoryControllerError('CategoryControllerError: Error in the key object'))
+            save: jest.fn().mockRejectedValue(new CategoryControllerError('CategoryControllerError: Error in the key object')),
+            nome: jest.fn().mockReturnValue({nome: 'front-end'})
         }
         const category = new CategoryController(mockModelMongooseWithQuery);
         //Act     
         
         expect.assertions(1);
-        const addCat = await category.createCategory({nome: 'front-end'})
+        const addCat = await category.createCategory();
         
-        expect(addCat.messageError.message).toBe('CategoryControllerError: Error in the key object')
+        expect(addCat.messageError.message).toBe('CategoryControllerError: Error in the key object');
     })
 });
