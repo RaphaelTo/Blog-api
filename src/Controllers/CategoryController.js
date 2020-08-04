@@ -47,7 +47,12 @@ class CategoryController {
         return successResponse(deleteCat);
     }
 
-    async updateCategoryById(ID) {
+    async updateCategoryById(ID, newCat) {
+        const updateCat = await this.model.findByIdAndUpdate(ID, newCat);
+        if(!updateCat) {
+            return errorResponse(new CategoryControllerError('CategoryControllerError: ID doesnt exist'))
+        }
+
         return {}
     }
 }
