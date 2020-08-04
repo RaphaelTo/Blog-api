@@ -43,3 +43,14 @@ anonymeRouteCategory
             res.status(200).json(deleteCat);
         }
     })
+
+    .put('/updateById/:id', async (req, res) => {
+        const category = new CategoryController(Category);
+        const updateCat = await category.updateCategoryById(req.params.id, {name: req.body.name});
+
+        if(updateCat.type === "error"){
+            res.status(404).json(updateCat);
+        } else {
+            res.status(200).json(updateCat);
+        }
+    })
