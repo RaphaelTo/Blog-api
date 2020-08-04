@@ -40,7 +40,11 @@ class CategoryController {
     }
 
     async deleteCategoryById(ID) {
-        return {}
+        const deleteCat = await this.model.findByIdAndRemove(ID);
+        if(!deleteCat){
+            return errorResponse(new CategoryControllerError('CategoryControllerError: ID doesnt exist'));
+        }
+        return successResponse(deleteCat);
     }
 }
 
