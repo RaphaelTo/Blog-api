@@ -32,3 +32,14 @@ anonymeRouteCategory
             res.status(201).json(addCat);
         }
     })
+
+    .delete('/deleteById/:id', async (req, res) => {
+        const category = new CategoryController(Category);
+        const deleteCat = await category.deleteCategoryById(req.params.id);
+
+        if(deleteCat.type === "error"){
+            res.status(400).json(deleteCat);
+        } else {
+            res.status(200).json(deleteCat);
+        }
+    })
