@@ -208,7 +208,7 @@ describe('test CategoryController class', () => {
         const mockModelMongooseWithQuery = {
             save: jest.fn().mockRejectedValue(new CategoryControllerError('CategoryControllerError: Error in the key object')),
             nome: jest.fn().mockReturnValue({nome: 'front-end'})
-        }
+        };
         const category = new CategoryController(mockModelMongooseWithQuery);
         //Act     
         
@@ -216,11 +216,11 @@ describe('test CategoryController class', () => {
         const addCat = await category.createCategory();
         
         expect(addCat.messageError.message).toBe('CategoryControllerError: Error in the key object');
-    })
+    });
 
     test('method deleteCategory return an object', async () => {
         const mockModelMongooseWithQuery = {
-            findByIdAndDelete: jest.fn().mockResolvedValue({})
+            findByIdAndRemove: jest.fn().mockResolvedValue({})
         };
         const category = new CategoryController(mockModelMongooseWithQuery);
         const ID = 'a';
@@ -229,5 +229,34 @@ describe('test CategoryController class', () => {
         const deleteCat = await category.deleteCategoryById('a');
 
         expect(typeof deleteCat).toBe('object');
+    });
+
+    test('method return an error if ID doesnt exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndRemove: jest.fn().mockRejectedValue(new CategoryControllerError('CategoryControllerError: ID doesnt exist'))
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = '&';
+
+        expect.assertions(1);
+        try {
+            await category.deleteCategoryById(ID);
+        }catch (e) {
+            expect(e.message).toBe('CategoryControllerError: ID doesnt exist');
+        }
+    });
+
+    test('method return an object with id deleted', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndRemove: jest.fn().mockResolvedValue({_id: 'a'})
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = 'a';
+
+        expect.assertions(2);
+        const deleteCat = await category.deleteCategoryById(ID);
+
+        expect(deleteCat.result._id).not.toBeNull();
+        expect(deleteCat.result._id).toBe(ID);
     })
 });
