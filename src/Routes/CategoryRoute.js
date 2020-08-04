@@ -26,5 +26,9 @@ anonymeRouteCategory
         const category = new CategoryController(createInstanceCat);
         const addCat = await category.createCategory();
 
-        res.status(201).json(addCat);
+        if(addCat.type === "error"){
+            res.status(400).json(addCat);
+        } else {
+            res.status(201).json(addCat);
+        }
     })
