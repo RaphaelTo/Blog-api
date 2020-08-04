@@ -246,7 +246,7 @@ describe('test CategoryController class', () => {
         }
     });
 
-    test('method return an object with id deleted', async () => {
+    test('method deleteCat return an object with id deleted', async () => {
         const mockModelMongooseWithQuery = {
             findByIdAndRemove: jest.fn().mockResolvedValue({_id: 'a'})
         };
@@ -258,5 +258,20 @@ describe('test CategoryController class', () => {
 
         expect(deleteCat.result._id).not.toBeNull();
         expect(deleteCat.result._id).toBe(ID);
+    });
+
+    test('method updateCat exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({})
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = 'a';
+        const newCat = {name: 'nouveau'};
+
+        expect.assertions(2);
+        const updateCat = await category.updateCategoryById(ID);
+
+        expect(typeof updateCat).toBe('object');
+        expect(updateCat).not.toBeNull();
     })
 });
