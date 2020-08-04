@@ -281,7 +281,7 @@ describe('test CategoryController class', () => {
         };
         const category = new CategoryController(mockModelMongooseWithQuery);
         const ID = 'throwError';
-        const newCat = 'throwError';
+        const newCat = {name: 'hello'};
 
         expect.assertions(1);
         try {
@@ -289,5 +289,19 @@ describe('test CategoryController class', () => {
         }catch (e) {
             expect(e.message).toBe('CategoryControllerError: ID doesnt exist')
         }
+    });
+
+    test('method updateCat throw error if key object has false', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockReturnValue([])
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = "goodID";
+        const newCat = {nome: 'throwError'};
+
+        expect.assertions(1);
+        const updateCat = await category.updateCategoryById(ID, newCat);
+
+        expect(updateCat.messageError.message).toBe('CategoryControllerError: key has incorrect');
     })
 });
