@@ -38,6 +38,10 @@ class CategoryController {
         }
         return successResponse(await this.model.save());
     }
+
+    async deleteCategoryById(ID) {
+        return {}
+    }
 }
 
 export default CategoryController;
