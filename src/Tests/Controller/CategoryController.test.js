@@ -269,9 +269,25 @@ describe('test CategoryController class', () => {
         const newCat = {name: 'nouveau'};
 
         expect.assertions(2);
-        const updateCat = await category.updateCategoryById(ID);
+        const updateCat = await category.updateCategoryById(ID, newCat);
 
         expect(typeof updateCat).toBe('object');
         expect(updateCat).not.toBeNull();
+    });
+
+    test('method updateCat throw error if id doesnt exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockRejectedValue(new CategoryControllerError('CategoryControllerError: ID doesnt exist'))
+        };
+        const category = new CategoryController(mockModelMongooseWithQuery);
+        const ID = 'throwError';
+        const newCat = 'throwError';
+
+        expect.assertions(1);
+        try {
+            await category.updateCategoryById(ID, newCat);
+        }catch (e) {
+            expect(e.message).toBe('CategoryControllerError: ID doesnt exist')
+        }
     })
 });
