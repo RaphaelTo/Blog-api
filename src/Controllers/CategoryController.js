@@ -33,11 +33,11 @@ class CategoryController {
         return response;
     }
 
-    async createCategory(category) {
-        if(!category.name){
-            return errorResponse(new CategoryControllerError('CategoryControllerError: Error in the key object'));    
+    async createCategory() {
+        if(this.model.name === undefined){
+            return errorResponse(new CategoryControllerError('CategoryControllerError: Error in the key object'));
         }
-        return successResponse(await this.model.create(category));
+        return successResponse(await this.model.save());
     }
 }
 
