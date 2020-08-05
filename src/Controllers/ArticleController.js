@@ -53,6 +53,10 @@ class ArticleController {
         return successResponse(deleteArticle);
     }
 
+    async updateArticleById(ID, body) {
+        return {}
+    }
+
 }
 
 export default ArticleController;
