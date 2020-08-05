@@ -34,6 +34,10 @@ class ArticleController {
         return response;
     }
 
+    async createArticle(){
+        return {};
+    }
+
 }
 
 export default ArticleController;
