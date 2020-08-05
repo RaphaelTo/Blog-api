@@ -317,5 +317,6 @@ describe('test CategoryController class', () => {
         const updateCat = await category.updateCategoryById(ID, newCat);
 
         expect(updateCat.result).toEqual({_id: 'a', name:'last name'});
-    })
+    });
+
 });
