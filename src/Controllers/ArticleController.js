@@ -44,6 +44,16 @@ class ArticleController {
         return successResponse(add);
     }
 
+    async deleteArticleById(ID) {
+        const deleteArticle = await this.model.findByIdAndRemove(ID);
+        if(!deleteArticle){
+            return errorResponse(new ArticleControllerError('ArticleControllerError: ID doesnt exist'))
+        }
+
+
+        return {};
+    }
+
 }
 
 export default ArticleController;
