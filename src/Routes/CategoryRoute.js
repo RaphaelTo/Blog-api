@@ -38,7 +38,7 @@ anonymeRouteCategory
         const deleteCat = await category.deleteCategoryById(req.params.id);
 
         if(deleteCat.type === "error"){
-            res.status(400).json(deleteCat);
+            res.status(404).json(deleteCat);
         } else {
             res.status(200).json(deleteCat);
         }
