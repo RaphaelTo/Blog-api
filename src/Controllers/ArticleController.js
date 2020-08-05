@@ -54,6 +54,10 @@ class ArticleController {
     }
 
     async updateArticleById(ID, body) {
+        const updateArticle = this.model.findByIdAndUpdate(ID, body);
+        if(!updateArticle) {
+            return errorResponse(new ArticleControllerError('ArticleControllerError: ID doesnt exist'))
+        }
         return {}
     }
 
