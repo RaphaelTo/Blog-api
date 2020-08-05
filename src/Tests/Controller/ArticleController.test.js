@@ -235,5 +235,22 @@ describe('test ArticleController class', () => {
         const addArticle = await article.createArticle();
 
         expect(addArticle.messageError.message).toBe('ArticleControllerError: Error on the "key" object');
+    });
+
+    test('method createArticle check return the article created', async () => {
+        const mockModelMongooseWithQuery = {
+            save: jest.fn().mockResolvedValue({title: 'a', abstract: 'a', content: 'a', Category: 'a'}),
+            title: 'a',
+            abstract: 'a',
+            content: 'a',
+            Category: 'a'
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+
+        expect.assertions(2);
+        const addArticle = await article.createArticle();
+
+        expect(addArticle.type).toBe('success');
+        expect(addArticle.result).toEqual({title: 'a', abstract: 'a', content: 'a', Category: 'a'})
     })
 });
