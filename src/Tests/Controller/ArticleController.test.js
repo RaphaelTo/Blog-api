@@ -296,4 +296,17 @@ describe('test ArticleController class', () => {
         }
     });
 
+    test('method deleteArticleById return id deleted', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndRemove: jest.fn().mockResolvedValue({_id: 'a'})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = 'a';
+
+        expect.assertions(2);
+        const deleteArticle = await article.deleteArticleById(ID);
+
+        expect(deleteArticle.result).toEqual({_id: 'a'});
+        expect(mockModelMongooseWithQuery.findByIdAndRemove).toHaveBeenCalledTimes(1);
+    })
 });
