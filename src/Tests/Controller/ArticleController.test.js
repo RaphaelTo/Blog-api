@@ -196,4 +196,16 @@ describe('test ArticleController class', () => {
            expect(e).reject.toThrow(/ERROR/)
        }
     });
+
+    test('method createArticle exist', async () => {
+        const mockModelMongooseWithQuery = {
+            save: jest.fn().mockReturnValue({})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+
+        expect.assertions(1);
+        const addArticle = article.createArticle();
+
+        await expect(addArticle).not.toBeNull();
+    });
 });
