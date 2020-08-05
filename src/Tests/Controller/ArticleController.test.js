@@ -1,6 +1,7 @@
 import ArticleController from '../../Controllers/ArticleController';
 import mongoose from 'mongoose';
 import expect from 'expect';
+import ArticleControllerError from "../../Errors/ArticleControllerError";
 
 jest.mock('mongoose');
 
@@ -265,5 +266,34 @@ describe('test ArticleController class', () => {
         const deleteArticle = article.deleteArticleById(ID);
 
         await expect(deleteArticle).not.toBeNull();
-    })
+    });
+
+    test('method deleteArticleById return an object', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndRemove: jest.fn().mockReturnValue({})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = "a";
+
+        expect.assertions(1);
+        const deleteArticle = article.deleteArticleById(ID);
+
+        await expect(typeof deleteArticle).toBe('object');
+    });
+
+    test('method deleteArticleById throw error if id doesnt exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndRemove: jest.fn().mockRejectedValue(new ArticleControllerError('ArticleControllerError: ID doesnt exist'))
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = 'a';
+
+        expect.assertions(1);
+        try{
+            await article.deleteArticleById(ID);
+        }catch (err) {
+            expect(err.message).toBe('ArticleControllerError: ID doesnt exist')
+        }
+    });
+
 });
