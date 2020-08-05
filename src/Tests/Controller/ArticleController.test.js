@@ -308,5 +308,33 @@ describe('test ArticleController class', () => {
 
         expect(deleteArticle.result).toEqual({_id: 'a'});
         expect(mockModelMongooseWithQuery.findByIdAndRemove).toHaveBeenCalledTimes(1);
+    });
+
+    test('method updateArticleById exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockReturnValue({})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = 'a';
+        const body = {};
+
+        expect.assertions(1);
+        const updateArticle = article.updateArticleById(ID, body);
+
+        await expect(updateArticle).not.toBeNull();
+    });
+
+    test('method updateArticleById return an object', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockReturnValue({})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = 'a';
+        const body = {};
+
+        expect.assertions(1);
+        const updateArticle = article.updateArticleById(ID, body);
+
+        await expect(typeof updateArticle).toBe('object');
     })
 });
