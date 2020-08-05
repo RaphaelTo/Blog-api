@@ -50,8 +50,7 @@ class ArticleController {
             return errorResponse(new ArticleControllerError('ArticleControllerError: ID doesnt exist'))
         }
 
-
-        return {};
+        return successResponse(deleteArticle);
     }
 
 }
