@@ -336,5 +336,24 @@ describe('test ArticleController class', () => {
         const updateArticle = article.updateArticleById(ID, body);
 
         await expect(typeof updateArticle).toBe('object');
+    });
+
+    test('method updateArticleById throw error if id doesnt exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndUpdate: jest.fn().mockReturnValue({}),
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = 'a';
+        const body = {
+            title: 'a',
+            abstract: 'a',
+            content: 'a',
+            Category: 'a'
+        };
+
+        expect.assertions(1);
+        const updateArticle = await article.updateArticleById(ID, body);
+
+        expect(updateArticle.messageError.message).toBe('ArticleControllerError: ID doesnt exist')
     })
 });
