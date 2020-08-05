@@ -252,5 +252,18 @@ describe('test ArticleController class', () => {
 
         expect(addArticle.type).toBe('success');
         expect(addArticle.result).toEqual({title: 'a', abstract: 'a', content: 'a', Category: 'a'})
+    });
+
+    test('method deleteArticleById exist', async () => {
+        const mockModelMongooseWithQuery = {
+            findByIdAndRemove: jest.fn().mockReturnValue({})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+        const ID = 'a';
+
+        expect.assertions(1);
+        const deleteArticle = article.deleteArticleById(ID);
+
+        await expect(deleteArticle).not.toBeNull();
     })
 });
