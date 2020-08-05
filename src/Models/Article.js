@@ -7,7 +7,7 @@ const ArticleSchema = new Schema({
     abstract: { type: String, maxlength: 140},
     content: String,
     date: { type: Date, default: Date.now},
-    Category : [{ type: Schema.Types.ObjectId, ref: 'Category'}]
+    Category : { type: Schema.Types.ObjectId, ref: 'Category'}
 });
 
 const Article = mongoose.model('Article', ArticleSchema);
