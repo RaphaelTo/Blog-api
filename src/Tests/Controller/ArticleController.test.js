@@ -208,4 +208,16 @@ describe('test ArticleController class', () => {
 
         await expect(addArticle).not.toBeNull();
     });
+
+    test('method createArticle return an object', async () => {
+        const mockModelMongooseWithQuery = {
+            save: jest.fn().mockResolvedValue({})
+        };
+        const article = new ArticleController(mockModelMongooseWithQuery);
+
+        expect.assertions(1);
+        const addArticle = article.createArticle();
+
+        await expect(typeof addArticle).toBe('object');
+    })
 });
