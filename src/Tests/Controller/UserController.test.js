@@ -238,7 +238,7 @@ describe('test file UserController', () => {
         };
         const user = new UserController(mockMongoose);
         const paramUser = {
-            email: 'razer@live.fr',
+            username: 'razer@live.fr',
             password: 'a',
         };
 
@@ -246,6 +246,23 @@ describe('test file UserController', () => {
         const connection = await user.connection(paramUser);
 
         expect(connection.messageError).toBe('Username not found');
+    })
+
+    test('method "connection" return an error if password is false', async () => {
+        const mockMongoose = {
+            find: jest.fn().mockResolvedValue([{username: 'a', password: 'aadsf'}])
+        };
+        const user = new UserController(mockMongoose);
+        const paramUser = {
+            username: 'a',
+            password: 'aa'
+        };
+        bcrypt.compare.mockResolvedValue(false);
+
+        expect.assertions(1);
+        const connection = await user.connection(paramUser);
+
+        expect(connection.messageError).toBe('Error password');
     })
     //find
 });
