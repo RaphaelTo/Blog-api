@@ -11,14 +11,21 @@ describe('test file UserController', () => {
 
     test('initialisation instance UserController class', () => {
         const mockMongoose = {
-            User : jest.fn().mockReturnValue({
-                find :{},
-                findOne: {}
-            })
-        };
+            find: jest.fn().mockReturnValue({})
+        }
 
         const user = new UserController(mockMongoose);
 
         expect(user).not.toBeNull();
+    })
+
+    test('throw error if isnt a model mongoose', () => {
+        const mockMongoose = null;
+
+        try {
+            new UserController(mockMongoose);
+        } catch(err) {
+            expect(err.message).toBe('UserControllerError: this isnt an mongoose model instance')
+        }
     })
 });
