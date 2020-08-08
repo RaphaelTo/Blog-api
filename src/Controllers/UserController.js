@@ -46,7 +46,7 @@ class UserController {
     }
 
     async connection() {
-
+        return {};
     }
 }
 
