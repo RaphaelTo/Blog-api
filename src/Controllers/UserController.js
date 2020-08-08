@@ -31,7 +31,9 @@ class UserController {
     }
 
     async comparePasswordWithCrypt(passwordCrypted, passwordDB){
-
+        if(typeof passwordCrypted !== 'string' || typeof passwordDB !== 'string'){
+            throw new UserControllerError('UserControllerError: the params isnt a string')
+        }
     }
 }
 
