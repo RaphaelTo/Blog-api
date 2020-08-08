@@ -1,8 +1,11 @@
 import UserController from "../../Controllers/UserController";
 import expect from 'expect';
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
+jest.mock('bcrypt');
 jest.mock('mongoose');
+
 
 describe('test file UserController', () => {
     beforeEach(() => {
@@ -103,5 +106,17 @@ describe('test file UserController', () => {
         const crypt = await user.cryptPassword(passToCrypt);
 
         expect(typeof crypt).toBe('string');
+    })
+
+    test('method "cryptPassword" return an password crypted', async () => {
+        const mockMongoose = 'User';
+        bcrypt.hash.mockResolvedValue('aze');
+        const user = new UserController(mockMongoose);
+
+
+        const passToCrypt = "a";
+        const crypt = await user.cryptPassword(passToCrypt);
+
+        expect(crypt).toBe('aze');
     })
 });
