@@ -23,6 +23,9 @@ class UserController {
     }
 
     async cryptPassword(passwordToCrypt){
+        if(passwordToCrypt !== 'string'){
+            throw new UserControllerError('UserControllerError: the params isnt a string')
+        }
         const crypt = await bcrypt.hash(passwordToCrypt, process.env.SALT);
         return crypt;
     }
