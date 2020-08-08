@@ -39,4 +39,15 @@ describe('test file UserController', () => {
 
         expect(samePass).not.toBeNull();
     })
+
+    test('method samePassword return an bool', () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const pass1 = "a";
+        const pass2 = "a";
+        const samePass = user.samePassword(pass1, pass2);
+
+        expect(typeof samePass).toBe('boolean')
+    })
 });
