@@ -46,6 +46,10 @@ class UserController {
     }
 
     async connection(paramUser) {
+        if(typeof paramUser.username !== 'string' || typeof paramUser.password !== 'string'){
+            throw new UserControllerError('UserControllerError: params isnt type string')
+        }
+
         const getAccount = await this.model.find({username: paramUser.username});
         if(getAccount.length === 0){
             return errorResponse('Username not found');
