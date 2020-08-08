@@ -1,4 +1,5 @@
 import UserController from "../../Controllers/UserController";
+import UserControllerError from "../../Errors/UserControllerError";
 import expect from 'expect';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
@@ -113,10 +114,19 @@ describe('test file UserController', () => {
         bcrypt.hash.mockResolvedValue('aze');
         const user = new UserController(mockMongoose);
 
-
         const passToCrypt = "a";
         const crypt = await user.cryptPassword(passToCrypt);
 
         expect(crypt).toBe('aze');
+    })
+
+    test('method "cryptPassword" throw error if the param isnt a string', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const passToCrypt = 1;
+        const crypt = user.cryptPassword(passToCrypt);
+
+        await expect(crypt).rejects.toThrow(/UserControllerError: the params isnt a string/);
     })
 });
