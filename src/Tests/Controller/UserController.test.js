@@ -217,4 +217,14 @@ describe('test file UserController', () => {
 
         await expect(connection).resolves.not.toBeNull();
     })
+
+    test('method "connection" return an object', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        expect.assertions(1);
+        const connection = user.connection();
+
+        expect(typeof await connection).toBe('object');
+    })
 });
