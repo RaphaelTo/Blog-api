@@ -44,6 +44,10 @@ class UserController {
         }
         return await jwt.sign({email: email}, process.env.SECRETTOKEN, {algorithm: 'HS256', expiresIn: '24h'});
     }
+
+    async connection() {
+
+    }
 }
 
 export default UserController;
