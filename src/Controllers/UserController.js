@@ -1,6 +1,7 @@
+import bcrypt from 'bcrypt';
 import UserControllerError from "../Errors/UserControllerError";
 import { successResponse, errorResponse } from '../responseJson';
-import mongoose from 'mongoose';
+
 
 class UserController {
     model;
@@ -22,7 +23,8 @@ class UserController {
     }
 
     async cryptPassword(passwordToCrypt){
-        return ''
+        const crypt = await bcrypt.hash(passwordToCrypt, process.env.SALT);
+        return crypt;
     }
 }
 
