@@ -34,6 +34,7 @@ class UserController {
         if(typeof passwordCrypted !== 'string' || typeof passwordDB !== 'string'){
             throw new UserControllerError('UserControllerError: the params isnt a string')
         }
+        return await bcrypt.compare(passwordCrypted, passwordDB);
     }
 }
 
