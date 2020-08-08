@@ -36,6 +36,10 @@ class UserController {
         }
         return await bcrypt.compare(passwordCrypted, passwordDB);
     }
+
+    async createToken(email){
+
+    }
 }
 
 export default UserController;
