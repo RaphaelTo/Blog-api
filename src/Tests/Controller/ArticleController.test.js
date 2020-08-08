@@ -13,7 +13,7 @@ describe('test ArticleController class', () => {
 
     test('throw error if param isnt mongoose instance', () => {
         //Arrange
-        const mockMongoose = mongoose.model.mockReturnValue('Article');
+        const mockMongoose = mongoose.model.mockReturnValue();
         
         expect(mockMongoose).toHaveBeenCalledTimes(0);
         
@@ -26,7 +26,7 @@ describe('test ArticleController class', () => {
 
     test('method getAllArticle return an object', async () => {
         //Arrange
-        const mockModelMongoose = mongoose.model.mockReturnValue({});
+        const mockModelMongoose = mongoose.model.mockReturnValue('Article');
         const article = new ArticleController(mockModelMongoose);
         //Act
         const getAllArticle = article.getAllArticle();
@@ -340,7 +340,7 @@ describe('test ArticleController class', () => {
 
     test('method updateArticleById throw error if id doesnt exist', async () => {
         const mockModelMongooseWithQuery = {
-            findByIdAndUpdate: jest.fn().mockReturnValue({}),
+            findByIdAndUpdate: jest.fn().mockRejectedValue(),
         };
         const article = new ArticleController(mockModelMongooseWithQuery);
         const ID = 'a';
