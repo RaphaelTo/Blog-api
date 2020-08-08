@@ -84,4 +84,14 @@ describe('test file UserController', () => {
 
         expect(samePass).toBe(true)
     })
+
+    test('exist method cryptPassword', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const passToCrypt = "aa";
+        const crypt = await user.cryptPassword(passToCrypt);
+
+        expect(crypt).not.toBeNull();
+    })
 });
