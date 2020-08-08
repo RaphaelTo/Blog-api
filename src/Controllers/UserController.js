@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import UserControllerError from "../Errors/UserControllerError";
 import { successResponse, errorResponse } from '../responseJson';
 
@@ -41,6 +42,7 @@ class UserController {
         if(typeof email !== 'string') {
             throw new UserControllerError('UserControllerError: the params isnt a string');
         }
+        return await jwt.sign({email: email}, process.env.SECRETTOKEN, {algorithm: 'HS256', expiresIn: '24h'});
     }
 }
 
