@@ -173,4 +173,14 @@ describe('test file UserController', () => {
 
         await expect(createToken).resolves.not.toBeNull();
     })
+
+    test('method "createToken" throw error if param isnt a string', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const email = true;
+        const createToken = user.createToken(email);
+
+        await expect(createToken).rejects.toThrow(/UserControllerError: the params isnt a string/)
+    })
 });
