@@ -29,6 +29,10 @@ class UserController {
 
         return await bcrypt.hash(passwordToCrypt, process.env.SALT);
     }
+
+    async comparePasswordWithCrypt(passwordCrypted, passwordDB){
+
+    }
 }
 
 export default UserController;
