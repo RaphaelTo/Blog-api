@@ -27,15 +27,15 @@ class UserController {
         if(typeof passwordToCrypt !== 'string'){
             throw new UserControllerError('UserControllerError: the params isnt a string')
         }
-
-        return await bcrypt.hash(passwordToCrypt, process.env.SALT);
+        const salt = await bcrypt.genSalt(Number(process.env.SALT));
+        return await bcrypt.hash(passwordToCrypt, salt);
     }
 
-    async comparePasswordWithCrypt(passwordCrypted, passwordDB){
-        if(typeof passwordCrypted !== 'string' || typeof passwordDB !== 'string'){
+    async comparePasswordWithCrypt(password, passwordDB){
+        if(typeof password !== 'string' || typeof passwordDB !== 'string'){
             throw new UserControllerError('UserControllerError: the params isnt a string')
         }
-        return await bcrypt.compare(passwordCrypted, passwordDB);
+        return await bcrypt.compare(password, passwordDB);
     }
 
     async createToken(email){
