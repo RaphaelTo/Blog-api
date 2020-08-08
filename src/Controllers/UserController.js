@@ -56,7 +56,7 @@ class UserController {
             return errorResponse('Error password')
         }
 
-        return getAccount;
+        return successResponse(await this.createToken(paramUser.username));
     }
 }
 
