@@ -45,8 +45,12 @@ class UserController {
         return await jwt.sign({email: email}, process.env.SECRETTOKEN, {algorithm: 'HS256', expiresIn: '24h'});
     }
 
-    async connection() {
-        return {};
+    async connection(paramUser) {
+        const getAccount = await this.model.find({username: paramUser.username});
+        if(getAccount.length === 0){
+            return errorResponse('Username not found');
+        }
+        return getAccount;
     }
 }
 
