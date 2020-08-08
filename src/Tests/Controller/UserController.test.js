@@ -28,4 +28,15 @@ describe('test file UserController', () => {
             expect(err.message).toBe('UserControllerError: this isnt an mongoose model instance')
         }
     })
+
+    test('exist method samePassword', () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const pass1 = "a";
+        const pass2 = "a";
+        const samePass = user.samePassword(pass1, pass2);
+
+        expect(samePass).not.toBeNull();
+    })
 });
