@@ -209,22 +209,34 @@ describe('test file UserController', () => {
     })
 
     test('method "connection" exist', async () => {
-        const mockMongoose = 'User';
+        const mockMongoose = {
+            find: jest.fn().mockResolvedValue([{username: 'a', password: 'aadsf'}])
+        };
         const user = new UserController(mockMongoose);
+        const param = {
+            username: 'a',
+            password: 'a'
+        };
+        bcrypt.compare.mockResolvedValue(true);
+        jwt.sign.mockResolvedValue('token_jwt');
 
         expect.assertions(1);
-        const connection = user.connection();
+        const connection = user.connection(param);
 
         await expect(connection).resolves.not.toBeNull();
     })
 
     test('method "connection" return an object', async () => {
-        const mockMongoose = 'User';
+        const mockMongoose = {
+            find: jest.fn().mockResolvedValue([{username: 'a', password: 'aadsf'}])
+        };;
         const user = new UserController(mockMongoose);
         const paramUser = {
-            email: 'razer@live.fr',
+            username: 'razer@live.fr',
             password: 'a',
         };
+        bcrypt.compare.mockResolvedValue(true);
+        jwt.sign.mockResolvedValue('token_jwt');
 
         expect.assertions(1);
         const connection = user.connection(paramUser);
@@ -281,5 +293,16 @@ describe('test file UserController', () => {
         const connection = await user.connection(paramUser);
 
         expect(connection.result).toBe('token_jwt');
+    });
+
+    test('method "connection" throw error if param.username & password isnt string', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+        const param = {username: 1, password: 'azd'};
+
+        expect.assertions(1);
+        const connection = user.connection(param);
+
+        await expect(connection).rejects.toThrow(/UserControllerError: params isnt type string/)
     })
 });
