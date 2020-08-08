@@ -14,7 +14,11 @@ class UserController {
     }
 
     samePassword(firstPassword, secondPassword) {
-        return true;
+        if(typeof firstPassword !== 'string' || typeof secondPassword !== 'string'){
+            return false;
+        }
+
+        return firstPassword === secondPassword;
     }
 }
 
