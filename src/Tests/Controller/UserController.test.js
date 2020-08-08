@@ -162,5 +162,15 @@ describe('test file UserController', () => {
         const compare = user.comparePasswordWithCrypt(passwordCrypted, passwordDB);
 
         await expect(compare).resolves.toBe(true);
+    });
+
+    test('method "createToken" exist', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const email = 'a';
+        const createToken = user.createToken(email);
+
+        await expect(createToken).resolves.not.toBeNull();
     })
 });
