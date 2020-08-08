@@ -102,7 +102,7 @@ describe('test file UserController', () => {
     test('method "cryptPassword" return a string', async () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
-
+        bcrypt.hash.mockResolvedValue('aze');
         const passToCrypt = "aa";
         const crypt = await user.cryptPassword(passToCrypt);
 
