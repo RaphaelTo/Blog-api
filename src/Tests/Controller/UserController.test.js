@@ -94,4 +94,14 @@ describe('test file UserController', () => {
 
         expect(crypt).not.toBeNull();
     })
+
+    test('method "cryptPassword" return a string', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const passToCrypt = "aa";
+        const crypt = await user.cryptPassword(passToCrypt);
+
+        expect(typeof crypt).toBe('string');
+    })
 });
