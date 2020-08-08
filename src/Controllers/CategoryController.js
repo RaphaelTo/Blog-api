@@ -5,8 +5,8 @@ import mongoose from 'mongoose';
 class CategoryController {
     model;
 
-    constructor(modelMongoose) {
-        if(!modelMongoose.prototype instanceof mongoose.Model) {
+    constructor(modelMongoose = null) {
+        if(modelMongoose === null) {
             throw new CategoryControllerError('CategoryControllerError: this isnt an mongoose model instance');
         }
 
@@ -53,12 +53,11 @@ class CategoryController {
             return errorResponse(new CategoryControllerError('CategoryControllerError: key has incorrect'))
         }
 
-        const updateCat = await this.model.findByIdAndUpdate(ID, newCat);
-        if(!updateCat) {
+        try {
+            return successResponse(await this.model.findByIdAndUpdate(ID, newCat));
+        }catch(e){
             return errorResponse(new CategoryControllerError('CategoryControllerError: ID doesnt exist'))
         }
-
-        return successResponse(updateCat);
     }
 }
 

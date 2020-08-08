@@ -6,8 +6,8 @@ class ArticleController {
 
     model;
 
-    constructor(modelMongoose) {
-        if(!modelMongoose.prototype instanceof mongoose.Model) {
+    constructor(modelMongoose = null) {
+        if(modelMongoose === null) {
             throw new ArticleControllerError('ArticleControllerError: this isnt an mongoose model instance');
         }
 
@@ -54,11 +54,11 @@ class ArticleController {
     }
 
     async updateArticleById(ID, body) {
-        const updateArticle = await this.model.findByIdAndUpdate(ID, body);
-        if(!updateArticle) {
+        try {
+            return successResponse(await this.model.findByIdAndUpdate(ID, body));
+        } catch (e) {
             return errorResponse(new ArticleControllerError('ArticleControllerError: ID doesnt exist'))
         }
-        return successResponse(updateArticle);
     }
 
 }
