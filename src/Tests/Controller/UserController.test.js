@@ -129,4 +129,15 @@ describe('test file UserController', () => {
 
         await expect(crypt).rejects.toThrow(/UserControllerError: the params isnt a string/);
     })
+
+    test('method "comparePasswordWithCrypt" exist', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const passwordCrypted = 'aze';
+        const passwordDB = "asze";
+        const compare = await user.comparePasswordWithCrypt(passwordCrypted, passwordDB);
+
+        expect(compare).not.toBeNull();
+    })
 });
