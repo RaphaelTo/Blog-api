@@ -12,6 +12,10 @@ class UserController {
 
         this.model = modelMongoose;
     }
+
+    samePassword(firstPassword, secondPassword) {
+        return true;
+    }
 }
 
 export default UserController;
