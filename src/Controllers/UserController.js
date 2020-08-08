@@ -38,7 +38,9 @@ class UserController {
     }
 
     async createToken(email){
-
+        if(typeof email !== 'string') {
+            throw new UserControllerError('UserControllerError: the params isnt a string');
+        }
     }
 }
 
