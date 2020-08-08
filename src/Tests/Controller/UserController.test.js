@@ -3,10 +3,11 @@ import UserControllerError from "../../Errors/UserControllerError";
 import expect from 'expect';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 jest.mock('bcrypt');
 jest.mock('mongoose');
-
+jest.mock('jsonwebtoken');
 
 describe('test file UserController', () => {
     beforeEach(() => {
@@ -93,6 +94,7 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const passToCrypt = "aa";
         const crypt = await user.cryptPassword(passToCrypt);
 
@@ -103,6 +105,8 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
         bcrypt.hash.mockResolvedValue('aze');
+
+        expect.assertions(1);
         const passToCrypt = "aa";
         const crypt = await user.cryptPassword(passToCrypt);
 
@@ -114,6 +118,7 @@ describe('test file UserController', () => {
         bcrypt.hash.mockResolvedValue('aze');
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const passToCrypt = "a";
         const crypt = await user.cryptPassword(passToCrypt);
 
@@ -124,6 +129,7 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const passToCrypt = 1;
         const crypt = user.cryptPassword(passToCrypt);
 
@@ -134,6 +140,7 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const passwordCrypted = 'aze';
         const passwordDB = "asze";
         const compare = await user.comparePasswordWithCrypt(passwordCrypted, passwordDB);
@@ -145,6 +152,7 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const passwordCrypted = 'aze';
         const passwordDB = 1;
         const compare = user.comparePasswordWithCrypt(passwordCrypted, passwordDB);
@@ -157,6 +165,7 @@ describe('test file UserController', () => {
         bcrypt.compare.mockResolvedValue(true);
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const passwordCrypted = 'aze';
         const passwordDB = 'aze';
         const compare = user.comparePasswordWithCrypt(passwordCrypted, passwordDB);
@@ -168,6 +177,7 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const email = 'a';
         const createToken = user.createToken(email);
 
@@ -178,9 +188,23 @@ describe('test file UserController', () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
 
+        expect.assertions(1);
         const email = true;
         const createToken = user.createToken(email);
 
         await expect(createToken).rejects.toThrow(/UserControllerError: the params isnt a string/)
+    })
+
+    test('method "createToken" return a token string', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+        jwt.sign.mockResolvedValue('azaeazezaezaeza');
+
+        expect.assertions(2);
+        const email = 'a';
+        const createToken = user.createToken(email);
+
+        await expect(createToken).resolves.toBe('azaeazezaezaeza');
+        expect(typeof await createToken).toBe("string");
     })
 });
