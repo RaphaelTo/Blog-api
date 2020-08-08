@@ -50,4 +50,27 @@ describe('test file UserController', () => {
 
         expect(typeof samePass).toBe('boolean')
     })
+
+    test('method samePassword return false if param isnt string', () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const pass1 = "a";
+        const pass2 = 1;
+        const samePass = user.samePassword(pass1, pass2);
+
+        expect(typeof samePass).toBe('boolean');
+        expect(samePass).toBe(false);
+    })
+
+    test('method samePassword return false if param isnt same', () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        const pass1 = "aze";
+        const pass2 = "a";
+        const samePass = user.samePassword(pass1, pass2);
+
+        expect(samePass).toBe(false)
+    })
 });
