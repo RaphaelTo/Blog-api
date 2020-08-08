@@ -221,10 +221,31 @@ describe('test file UserController', () => {
     test('method "connection" return an object', async () => {
         const mockMongoose = 'User';
         const user = new UserController(mockMongoose);
+        const paramUser = {
+            email: 'razer@live.fr',
+            password: 'a',
+        };
 
         expect.assertions(1);
-        const connection = user.connection();
+        const connection = user.connection(paramUser);
 
         expect(typeof await connection).toBe('object');
     })
+
+    test('method "connection" return an error if mail not found', async () => {
+        const mockMongoose = {
+            find: jest.fn().mockResolvedValue([])
+        };
+        const user = new UserController(mockMongoose);
+        const paramUser = {
+            email: 'razer@live.fr',
+            password: 'a',
+        };
+
+        expect.assertions(1);
+        const connection = await user.connection(paramUser);
+
+        expect(connection.messageError).toBe('Username not found');
+    })
+    //find
 });
