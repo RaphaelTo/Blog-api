@@ -20,6 +20,10 @@ class UserController {
 
         return firstPassword === secondPassword;
     }
+
+    async cryptPassword(passwordToCrypt){
+
+    }
 }
 
 export default UserController;
