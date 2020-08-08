@@ -20,13 +20,13 @@ describe('test CategoryController class', () => {
         try {
           new CategoryController(mockMongoose);
         }catch (err) {
-            expect(err.message).toBe('ArticleControllerError: this isnt an mongoose model instance');
+            expect(err.message).toBe('CategoryControllerError: this isnt an mongoose model instance');
         }
     });
 
     test('method getAllCategory return an object', async () => {
         //Arrange
-        const mockModelMongoose = mongoose.model.mockReturnValue({});
+        const mockModelMongoose = mongoose.model.mockReturnValue({Category : {find: {}}});
         const category = new CategoryController(mockModelMongoose);
         //Act
         const getAllCategory = category.getAllCategory();
@@ -284,11 +284,11 @@ describe('test CategoryController class', () => {
         const newCat = {name: 'hello'};
 
         expect.assertions(1);
-        try {
-            await category.updateCategoryById(ID, newCat);
-        }catch (e) {
-            expect(e.message).toBe('CategoryControllerError: ID doesnt exist')
-        }
+
+        const updateCat = await category.updateCategoryById(ID, newCat);
+
+        expect(updateCat.messageError.message).toBe('CategoryControllerError: ID doesnt exist')
+
     });
 
     test('method updateCat throw error if key object has false', async () => {
