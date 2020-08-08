@@ -22,7 +22,7 @@ class UserController {
     }
 
     async cryptPassword(passwordToCrypt){
-
+        return ''
     }
 }
 
