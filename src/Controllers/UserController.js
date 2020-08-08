@@ -50,6 +50,12 @@ class UserController {
         if(getAccount.length === 0){
             return errorResponse('Username not found');
         }
+
+        const decrypt = await this.comparePasswordWithCrypt(paramUser.password, getAccount[0].password);
+        if(!decrypt){
+            return errorResponse('Error password')
+        }
+
         return getAccount;
     }
 }
