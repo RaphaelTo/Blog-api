@@ -264,5 +264,22 @@ describe('test file UserController', () => {
 
         expect(connection.messageError).toBe('Error password');
     })
-    //find
+
+    test('method "connection" return an token', async () => {
+        const mockMongoose = {
+            find: jest.fn().mockResolvedValue([{username: 'a', password: 'aadsf'}])
+        };
+        const user = new UserController(mockMongoose);
+        const paramUser = {
+            username: 'a',
+            password: 'aa'
+        };
+        bcrypt.compare.mockResolvedValue(true);
+        jwt.sign.mockResolvedValue('token_jwt');
+
+        expect.assertions(1);
+        const connection = await user.connection(paramUser);
+
+        expect(connection.result).toBe('token_jwt');
+    })
 });
