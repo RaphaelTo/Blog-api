@@ -207,4 +207,14 @@ describe('test file UserController', () => {
         await expect(createToken).resolves.toBe('azaeazezaezaeza');
         expect(typeof await createToken).toBe("string");
     })
+
+    test('method "connection" exist', async () => {
+        const mockMongoose = 'User';
+        const user = new UserController(mockMongoose);
+
+        expect.assertions(1);
+        const connection = user.connection();
+
+        await expect(connection).resolves.not.toBeNull();
+    })
 });
