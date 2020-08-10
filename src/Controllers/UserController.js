@@ -79,6 +79,10 @@ class UserController {
             return errorResponse(new UserControllerError('UserControllerError: password cant be undefined or null'))
         }
 
+        if(!this.samePassword(firstPassword, secondPassword)) {
+            return errorResponse(new UserControllerError('UserControllerError: not same password'))
+        }
+
         return {};
     }
 }
