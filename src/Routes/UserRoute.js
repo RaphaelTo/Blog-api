@@ -15,3 +15,15 @@ anonymeRouteUser
             res.status(200).json(connection);
         }
     })
+
+    .post('/createUser', async (req, res) => {
+        const modelUser = new User({username: req.body.username, password: req.body.password});
+        const user = new UserController(modelUser);
+        const createUser = await user.createUser();
+
+        if(createUser.type === "error"){
+            res.status(400).json(createUser);
+        }else {
+            res.status(201).json(createUser);
+        }
+    })
