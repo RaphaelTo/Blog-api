@@ -3,6 +3,7 @@ import User from "../Models/User";
 import UserController from "../Controllers/UserController";
 
 export const anonymeRouteUser = express.Router();
+export const adminRouteUser = express.Router();
 
 anonymeRouteUser
     .post('/connection', async (req, res) => {
@@ -14,8 +15,9 @@ anonymeRouteUser
         }else {
             res.status(200).json(connection);
         }
-    })
+    });
 
+adminRouteUser
     .post('/createUser', async (req, res) => {
         const modelUser = new User({username: req.body.username, password: req.body.password});
         const user = new UserController(modelUser);
@@ -37,4 +39,4 @@ anonymeRouteUser
         }else {
             res.status(200).json(updatePassword);
         }
-    })
+    });

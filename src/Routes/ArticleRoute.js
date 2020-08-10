@@ -3,6 +3,7 @@ import ArticleController from "../Controllers/ArticleController";
 import Article from "../Models/Article";
 
 export const anonymeRouteArticle = express.Router();
+export const adminRouteArticle = express.Router();
 
 anonymeRouteArticle
     .get('/all', async (req, res) => {
@@ -19,8 +20,9 @@ anonymeRouteArticle
         }else{
             res.status(200).json(byID);
         }
-    })
+    });
 
+adminRouteArticle
     .post('/add', async (req, res) => {
         const articleInstance = new Article(req.body);
         const article = new ArticleController(articleInstance);
@@ -53,4 +55,4 @@ anonymeRouteArticle
         }else {
             res.status(200).json(updateArticle);
         }
-    })
+    });

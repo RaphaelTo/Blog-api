@@ -3,6 +3,7 @@ import Category from '../Models/Category';
 import CategoryController from '../Controllers/CategoryController';
 
 export const anonymeRouteCategory = express.Router();
+export const adminRouteCategory = express.Router();
 
 anonymeRouteCategory
     .get('/all', async (req, res) => {
@@ -19,8 +20,9 @@ anonymeRouteCategory
         } else {
             res.status(200).json(byID)
         }
-    })
+    });
 
+adminRouteCategory
     .post('/add', async (req, res) => {
         const createInstanceCat = new Category({name: req.body.name});
         const category = new CategoryController(createInstanceCat);
