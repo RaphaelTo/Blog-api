@@ -64,6 +64,10 @@ class UserController {
     }
 
     async createUser(user) {
+        const {username, password} = user;
+        if(!username || !password) {
+            return errorResponse(new UserControllerError('UserControllerError: password or username cant be undefined or null'))
+        }
         return {}
     }
 }
