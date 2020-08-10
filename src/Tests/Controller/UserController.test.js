@@ -333,4 +333,18 @@ describe('test file UserController', () => {
 
         expect(typeof createUser).toBe('object');
     });
+
+    test('method "createUser" throw error if username or password is undefined', async () => {
+        const mockMongoose = {
+            save: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('zaeaze');
+        const user = new UserController(mockMongoose);
+        const param = {username: undefined, password: 'a'};
+
+        expect.assertions(1);
+        const createUser = await user.createUser(param);
+
+        expect(createUser.type).toBe('error');
+    });
 });
