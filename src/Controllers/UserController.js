@@ -73,7 +73,7 @@ class UserController {
     }
 
     async updatePasswordUserByID(ID, password){
-
+        return {};
     }
 }
 
