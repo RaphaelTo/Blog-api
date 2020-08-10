@@ -304,5 +304,19 @@ describe('test file UserController', () => {
         const connection = user.connection(param);
 
         await expect(connection).rejects.toThrow(/UserControllerError: params isnt type string/)
+    });
+
+    test('method "createUser" exist', async () => {
+        const mockMongoose = {
+            save: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('zaeaze');
+        const user = new UserController(mockMongoose);
+        const param = {username: 'raphael', password: 'a'};
+
+        expect.assertions(1);
+        const createUser = user.createUser(param);
+
+        await expect(createUser).resolves.not.toBeNull();
     })
 });
