@@ -318,5 +318,19 @@ describe('test file UserController', () => {
         const createUser = user.createUser(param);
 
         await expect(createUser).resolves.not.toBeNull();
-    })
+    });
+
+    test('method "createUser" return an object', async () => {
+        const mockMongoose = {
+            save: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('zaeaze');
+        const user = new UserController(mockMongoose);
+        const param = {username: 'raphael', password: 'a'};
+
+        expect.assertions(1);
+        const createUser = await user.createUser(param);
+
+        expect(typeof createUser).toBe('object');
+    });
 });
