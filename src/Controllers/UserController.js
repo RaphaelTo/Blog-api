@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserControllerError from "../Errors/UserControllerError";
-import { successResponse, errorResponse } from '../responseJson';
+import {errorResponse, successResponse} from '../responseJson';
 
 
 class UserController {
@@ -63,12 +63,13 @@ class UserController {
         return successResponse(await this.createToken(paramUser.username));
     }
 
-    async createUser(user) {
-        const {username, password} = user;
+    async createUser() {
+        let {username, password} = this.model;
         if(!username || !password) {
             return errorResponse(new UserControllerError('UserControllerError: password or username cant be undefined or null'))
         }
-        return {}
+        this.model.password = await this.cryptPassword(password);
+        return successResponse(await this.model.save());
     }
 }
 
