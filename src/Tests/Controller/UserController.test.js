@@ -411,7 +411,7 @@ describe('test file UserController', () => {
         const ID = "a";
         const password = {
             firstPassword : 'a',
-            secondePassword: 'a'
+            secondPassword: null
         };
 
         expect.assertions(1);
@@ -419,5 +419,24 @@ describe('test file UserController', () => {
 
         expect(updatePassword.type).toBe('error');
     })
+
+    test('method "updatePasswordUserByID" throw if firstPassword or secondPassword isnt same', async () => {
+        const mockMongoose = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('aaaa');
+        const user = new UserController(mockMongoose);
+        const ID = "a";
+        const password = {
+            firstPassword : 'a',
+            secondPassword: 'b'
+        };
+
+        expect.assertions(1);
+        const updatePassword = await user.updatePasswordUserByID(ID, password);
+
+        expect(updatePassword.type).toBe('error');
+    })
+
 
 });
