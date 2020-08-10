@@ -382,5 +382,24 @@ describe('test file UserController', () => {
         const updatePassword = user.updatePasswordUserByID(ID, password);
 
         await expect(updatePassword).resolves.not.toBeNull();
-    })
+    });
+
+    test('method "updatePasswordUserByID" return an object', async () => {
+        const mockMongoose = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('aaaa');
+        const user = new UserController(mockMongoose);
+        const ID = "a";
+        const password = {
+            firstPassword : 'a',
+            secondPassword: 'a'
+        };
+
+        expect.assertions(1);
+        const updatePassword = await user.updatePasswordUserByID(ID, password);
+
+        expect(typeof updatePassword).toBe('object');
+    });
+
 });
