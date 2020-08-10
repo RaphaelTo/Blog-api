@@ -402,4 +402,22 @@ describe('test file UserController', () => {
         expect(typeof updatePassword).toBe('object');
     });
 
+    test('method "updatePasswordUserByID" throw error if firstPassword or secondPassword is null or undefined', async () => {
+        const mockMongoose = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('aaaa');
+        const user = new UserController(mockMongoose);
+        const ID = "a";
+        const password = {
+            firstPassword : 'a',
+            secondePassword: 'a'
+        };
+
+        expect.assertions(1);
+        const updatePassword = await user.updatePasswordUserByID(ID, password);
+
+        expect(updatePassword.type).toBe('error');
+    })
+
 });
