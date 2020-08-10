@@ -90,12 +90,11 @@ class UserController {
         const cryptPassword = await this.cryptPassword(firstPassword);
 
         try {
-            await this.model.findById(ID, {password: cryptPassword})
+            return successResponse(await this.model.findByIdAndUpdate(ID, {password: cryptPassword}));
         }catch {
             return errorResponse(new UserControllerError('UserControllerError: ID not found'))
         }
 
-        return {};
     }
 }
 
