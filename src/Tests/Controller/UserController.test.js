@@ -308,43 +308,61 @@ describe('test file UserController', () => {
 
     test('method "createUser" exist', async () => {
         const mockMongoose = {
-            save: jest.fn().mockResolvedValue({})
+            save: jest.fn().mockResolvedValue({}),
+            username: 'raphael',
+            password: 'a'
         };
         bcrypt.hash.mockResolvedValue('zaeaze');
         const user = new UserController(mockMongoose);
-        const param = {username: 'raphael', password: 'a'};
 
         expect.assertions(1);
-        const createUser = user.createUser(param);
+        const createUser = user.createUser();
 
         await expect(createUser).resolves.not.toBeNull();
     });
 
     test('method "createUser" return an object', async () => {
         const mockMongoose = {
-            save: jest.fn().mockResolvedValue({})
+            save: jest.fn().mockResolvedValue({}),
+            username: 'raphael',
+            password: 'a'
         };
         bcrypt.hash.mockResolvedValue('zaeaze');
         const user = new UserController(mockMongoose);
-        const param = {username: 'raphael', password: 'a'};
 
         expect.assertions(1);
-        const createUser = await user.createUser(param);
+        const createUser = await user.createUser();
 
         expect(typeof createUser).toBe('object');
     });
 
     test('method "createUser" throw error if username or password is undefined', async () => {
         const mockMongoose = {
-            save: jest.fn().mockResolvedValue({})
+            save: jest.fn().mockResolvedValue({}),
+            username: undefined,
+            password: 'a'
         };
         bcrypt.hash.mockResolvedValue('zaeaze');
         const user = new UserController(mockMongoose);
-        const param = {username: undefined, password: 'a'};
 
         expect.assertions(1);
-        const createUser = await user.createUser(param);
+        const createUser = await user.createUser();
 
         expect(createUser.type).toBe('error');
     });
+
+    test('method "createUser" return an user created with password crypted', async () => {
+        const mockMongoose = {
+            save: jest.fn().mockResolvedValue({username: 'raphael', password: 'zaeaze'}),
+            username: 'raphael',
+            password: 'a'
+        };
+        bcrypt.hash.mockResolvedValue('zaeaze');
+        const user = new UserController(mockMongoose);
+
+        expect.assertions(1);
+        const createUser = await user.createUser();
+
+        expect(createUser.result).toEqual({username: 'raphael', password: 'zaeaze'});
+    })
 });
