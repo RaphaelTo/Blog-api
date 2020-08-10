@@ -76,11 +76,23 @@ class UserController {
         const { firstPassword, secondPassword } = password;
 
         if(!firstPassword || !secondPassword) {
-            return errorResponse(new UserControllerError('UserControllerError: password cant be undefined or null'))
+            return errorResponse(new UserControllerError('UserControllerError: password cant be undefined or null'));
+        }
+
+        if(typeof firstPassword !== "string" || typeof secondPassword !== "string"){
+            return errorResponse(new UserControllerError('UserControllerError: firstPassword or secondPassword are not string'));
         }
 
         if(!this.samePassword(firstPassword, secondPassword)) {
-            return errorResponse(new UserControllerError('UserControllerError: not same password'))
+            return errorResponse(new UserControllerError('UserControllerError: not same password'));
+        }
+
+        const cryptPassword = await this.cryptPassword(firstPassword);
+
+        try {
+            await this.model.findById(ID, {password: cryptPassword})
+        }catch {
+            return errorResponse(new UserControllerError('UserControllerError: ID not found'))
         }
 
         return {};
