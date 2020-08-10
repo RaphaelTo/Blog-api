@@ -27,3 +27,14 @@ anonymeRouteUser
             res.status(201).json(createUser);
         }
     })
+
+    .put('/changePassword/:id', async (req, res) => {
+        const user = new UserController(User);
+        const updatePassword = await user.updatePasswordUserByID(req.params.id, req.body);
+
+        if(updatePassword.type === "error"){
+            res.status(400).json(updatePassword);
+        }else {
+            res.status(200).json(updatePassword);
+        }
+    })
