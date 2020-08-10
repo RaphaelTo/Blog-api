@@ -71,6 +71,10 @@ class UserController {
         this.model.password = await this.cryptPassword(password);
         return successResponse(await this.model.save());
     }
+
+    async updatePasswordUserByID(ID, password){
+
+    }
 }
 
 export default UserController;
