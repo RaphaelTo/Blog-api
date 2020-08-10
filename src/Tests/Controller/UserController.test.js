@@ -474,4 +474,24 @@ describe('test file UserController', () => {
         expect(updatePassword.messageError.message).toBe('UserControllerError: ID not found');
     })
 
+    test('method "updatePasswordUserByID" return user updated', async () => {
+        const mockMongoose = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({_id: "zae", username: 'Raphael', password: 'crypted'})
+        };
+        bcrypt.hash.mockResolvedValue('crypted');
+        const user = new UserController(mockMongoose);
+        const ID = "throwError";
+        const password = {
+            firstPassword : 'a',
+            secondPassword: 'a'
+        };
+
+        expect.assertions(1);
+        const updatePassword = await user.updatePasswordUserByID(ID, password);
+
+        expect(updatePassword.result).toEqual({
+            _id: "zae", username: 'Raphael', password: 'crypted'
+        });
+    })
+
 });
