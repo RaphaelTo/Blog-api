@@ -438,5 +438,40 @@ describe('test file UserController', () => {
         expect(updatePassword.type).toBe('error');
     })
 
+    test('method "updatePasswordUserByID" throw if firstPassword or secondPassword isnt string', async () => {
+        const mockMongoose = {
+            findByIdAndUpdate: jest.fn().mockResolvedValue({})
+        };
+        bcrypt.hash.mockResolvedValue('aaaa');
+        const user = new UserController(mockMongoose);
+        const ID = "a";
+        const password = {
+            firstPassword : 'a',
+            secondPassword: 1
+        };
+
+        expect.assertions(1);
+        const updatePassword = await user.updatePasswordUserByID(ID, password);
+
+        expect(updatePassword.messageError.message).toBe('UserControllerError: firstPassword or secondPassword are not string');
+    })
+
+    test('method "updatePasswordUserByID" throw error if id not found', async () => {
+        const mockMongoose = {
+            findByIdAndUpdate: jest.fn().mockRejectedValue(new UserControllerError('UserControllerError: ID not found'))
+        };
+        bcrypt.hash.mockResolvedValue('aaaa');
+        const user = new UserController(mockMongoose);
+        const ID = "throwError";
+        const password = {
+            firstPassword : 'a',
+            secondPassword: 'a'
+        };
+
+        expect.assertions(1);
+        const updatePassword = await user.updatePasswordUserByID(ID, password);
+
+        expect(updatePassword.messageError.message).toBe('UserControllerError: ID not found');
+    })
 
 });
