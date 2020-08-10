@@ -62,6 +62,10 @@ class UserController {
 
         return successResponse(await this.createToken(paramUser.username));
     }
+
+    async createUser(user) {
+
+    }
 }
 
 export default UserController;
