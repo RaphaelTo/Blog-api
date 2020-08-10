@@ -64,7 +64,7 @@ class UserController {
     }
 
     async createUser(user) {
-
+        return {}
     }
 }
 
