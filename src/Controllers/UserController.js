@@ -73,6 +73,12 @@ class UserController {
     }
 
     async updatePasswordUserByID(ID, password){
+        const { firstPassword, secondPassword } = password;
+
+        if(!firstPassword || !secondPassword) {
+            return errorResponse(new UserControllerError('UserControllerError: password cant be undefined or null'))
+        }
+
         return {};
     }
 }
