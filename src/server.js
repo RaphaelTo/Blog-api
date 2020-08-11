@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from'../swagger.json';
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(`${process.env.URL}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(`${process.env.URL}/article`, anonymeRouteArticle);
 app.use(`${process.env.URL}/category`, anonymeRouteCategory);
 app.use(`${process.env.URL}/user`, anonymeRouteUser);
