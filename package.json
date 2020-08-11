@@ -7,9 +7,11 @@
   "author": "RaphaelTO",
   "scripts": {
     "start": "nodemon src/server.js --exec babel-node",
-    "test": "jest"
+    "test": "jest --config=jest.config.js"
   },
   "dependencies": {
+    "@babel/runtime": "^7.10.5",
+    "@babel/runtime-corejs3": "^7.10.5",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -17,13 +19,17 @@
     "express": "^4.17.1",
     "jest": "^26.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.25"
+    "mongoose": "^5.9.25",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
     "@babel/node": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
+    "babel-jest": "^26.1.0",
     "morgan": "^1.10.0"
   }
 }

@@ -3,11 +3,11 @@ export const successResponse = (api) => {
         "type": "success",
         "result": api
     }
-}
+};
 
 export const errorResponse = (api) => {
     return {
         "type": "error",
         "messageError": api
     }
-}
+};
