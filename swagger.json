@@ -1,0 +1,313 @@
+{
+  "definitions": {},
+  "info": {
+    "title": "Blog-Nodejs",
+    "version": "1.0.0",
+    "description": "API REST du futur blog"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Article",
+      "description": "Toutes les liens existant permettant de manipuler les articles"
+    },
+    {
+      "name": "Article_Admin",
+      "description": "Toutes les liens existant permettant de manipuler les articles en tant qu'admin"
+    },
+    {
+      "name": "Catégorie",
+      "description": "Toutes les liens existant permettant de manipuler les catégories"
+    },
+    {
+      "name": "Catégorie_Admin",
+      "description": "Toutes les liens existant permettant de manipuler les catégories en tant qu'admin"
+    },
+    {
+      "name": "User",
+      "description": "Toutes les liens existant permettant de manipuler les utilisateurs"
+    },
+    {
+      "name": "User_Admin",
+      "description": "Toutes les liens existant permettant de manipuler les utilisateurs en tant qu'admin"
+    }
+  ],
+  "paths": {
+    "/article/all": {
+      "get": {
+        "tags": ["Article"],
+        "summary": "Permettant d'afficher tous les articles",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/article/byId/{id}": {
+      "get": {
+        "tags": ["Article"],
+        "summary": "Permettant d'afficher un article en donnant en paramètre son ID",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/category/all": {
+      "get": {
+        "tags": ["Catégorie"],
+        "summary": "Permettant d'afficher tous les catégories existantes",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/category/byId/{id}": {
+      "get": {
+        "tags": ["Catégorie"],
+        "summary": "Permettant d'afficher une catégorie en donnant en paramètre son ID",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/user/connection": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Permettant de se connecter",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [{
+          "name": "Username",
+          "in": "body",
+          "required": true
+        },
+          {
+            "name": "Password",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/admin/article/add": {
+      "post": {
+        "tags": ["Article_Admin"],
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet d'ajouter un article",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [{
+          "name": "Title",
+          "description": "Le titre",
+          "in":"body",
+          "required": true
+        },
+          {
+          "name": "Abstract",
+            "description": "Le résumé",
+          "in":"body",
+          "required": true
+        },
+          {
+            "name": "Content",
+            "description": "Le contenu",
+            "in":"body",
+            "required": true
+          },
+          {
+            "name": "Category",
+            "description": "La catégorie",
+            "in":"body",
+            "required": true
+          }],
+        "responses": {}
+      }
+    },
+    "/admin/article/deleteById/{id}": {
+      "delete": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet de supprimer un article",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": ["Article_Admin"]
+      }
+    },
+    "/admin/article/updateById/{id}": {
+      "put": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet de modifier un article",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Title",
+            "description": "Le titre",
+            "in":"body",
+            "required": false
+          },
+          {
+            "name": "Abstract",
+            "description": "Le résumé",
+            "in":"body",
+            "required": false
+          },
+          {
+            "name": "Content",
+            "description": "Le contenu",
+            "in":"body",
+            "required": false
+          },
+          {
+            "name": "Category",
+            "description": "La catégorie",
+            "in":"body",
+            "required": false
+          }
+        ],
+        "responses": {},
+        "tags": ["Article_Admin"]
+      }
+    },
+    "/admin/category/add": {
+      "post": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet d'ajouter une catégorie",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [{
+          "name": "Name",
+          "description": "Le nom",
+          "in": "body",
+          "required": true
+        }],
+        "responses": {},
+        "tags": ["Catégorie_Admin"]
+      }
+    },
+    "/admin/category/deleteById/{id}": {
+      "delete": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet de supprimer une catégorie",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": ["Catégorie_Admin"]
+      }
+    },
+    "/admin/category/updateById/{id}": {
+      "put": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet de modifier une catégorie",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "required": false
+          }
+        ],
+        "responses": {},
+        "tags": ["Catégorie_Admin"]
+      }
+    },
+    "/admin/user/createUser": {
+      "post": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet de créer un utilisateur",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [{
+          "name": "Username",
+          "description": "Le pseudo",
+          "in": "body",
+          "required": true
+        },{
+          "name": "Password",
+          "description": "Le mot de passe",
+          "in": "body",
+          "required": true
+          }],
+        "responses": {},
+        "tags": ["User_Admin"]
+      }
+    },
+    "/admin/user/changePassword/{id}": {
+      "put": {
+        "summary": "Devant être connecté pour pouvoir l'utiliser, il permet de modifier son mot de passe",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "firstPassword",
+            "description": "Le mot de passe",
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "secondPassword",
+            "description": "Le mot de passe de confirmation",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": ["User_Admin"]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
