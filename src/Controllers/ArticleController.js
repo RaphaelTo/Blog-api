@@ -35,9 +35,9 @@ class ArticleController {
     }
 
     async createArticle(){
-        const { title, abstract, content, Category } = this.model;
+        const { title, abstract, content, img, Category } = this.model;
 
-        if(!title || !abstract || !content || !Category){
+        if(!title || !abstract || !content || !Category || !img){
             return errorResponse(new ArticleControllerError('ArticleControllerError: Error on the "key" object'))
         }
         const add = await this.model.save();

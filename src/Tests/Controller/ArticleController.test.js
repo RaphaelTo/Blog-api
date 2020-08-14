@@ -48,6 +48,7 @@ describe('test ArticleController class', () => {
                     "Category":[],
                     "title":"A",
                     "abstract":"a",
+                    "img": 'a',
                     "content":"aaa",
                     "date":{"$date":"2020-07-30T16:02:00.791Z"}},
             ]),
@@ -68,6 +69,7 @@ describe('test ArticleController class', () => {
                 "Category":[],
                 "title":"A",
                 "abstract":"a",
+                "img": "a",
                 "content":"aaa",
                 "date":{"$date":"2020-07-30T16:02:00.791Z"}
             },
@@ -76,6 +78,7 @@ describe('test ArticleController class', () => {
                 "Category":[],
                 "title":"A",
                 "abstract":"a",
+                "img": "a",
                 "content":"aaa",
                 "date":{"$date":"2020-07-30T16:02:00.791Z"}
             },
@@ -88,6 +91,7 @@ describe('test ArticleController class', () => {
                      "Category":[],
                      "title":"A",
                      "abstract":"a",
+                     "img": "a",
                      "content":"aaa",
                      "date":{"$date":"2020-07-30T16:02:00.791Z"}
                  },
@@ -96,6 +100,7 @@ describe('test ArticleController class', () => {
                      "Category":[],
                      "title":"A",
                      "abstract":"a",
+                     "img": "a",
                      "content":"aaa",
                      "date":{"$date":"2020-07-30T16:02:00.791Z"}
                  },
@@ -157,6 +162,7 @@ describe('test ArticleController class', () => {
                 "Category":[],
                 "title":"A",
                 "abstract":"a",
+                "img": "a",
                 "content":"aaa",
                 "date":{"$date":"2020-07-30T16:02:00.791Z"}
             })
@@ -170,6 +176,7 @@ describe('test ArticleController class', () => {
                 "Category":[],
                 "title":"A",
                 "abstract":"a",
+                "img": "a",
                 "content":"aaa",
                 "date":{"$date":"2020-07-30T16:02:00.791Z"}
             }
@@ -228,6 +235,7 @@ describe('test ArticleController class', () => {
             title: 'a',
             abstract: 'a',
             contnt: 'a',
+            img: 'a',
             Category: 'a'
         };
         const article = new ArticleController(mockModelMongooseWithQuery);
@@ -240,10 +248,11 @@ describe('test ArticleController class', () => {
 
     test('method createArticle check return the article created', async () => {
         const mockModelMongooseWithQuery = {
-            save: jest.fn().mockResolvedValue({title: 'a', abstract: 'a', content: 'a', Category: 'a'}),
+            save: jest.fn().mockResolvedValue({title: 'a', abstract: 'a', content: 'a', img:'a',Category: 'a'}),
             title: 'a',
             abstract: 'a',
             content: 'a',
+            img:'a',
             Category: 'a'
         };
         const article = new ArticleController(mockModelMongooseWithQuery);
@@ -252,7 +261,7 @@ describe('test ArticleController class', () => {
         const addArticle = await article.createArticle();
 
         expect(addArticle.type).toBe('success');
-        expect(addArticle.result).toEqual({title: 'a', abstract: 'a', content: 'a', Category: 'a'})
+        expect(addArticle.result).toEqual({title: 'a', abstract: 'a', content: 'a', img: 'a',Category: 'a'})
     });
 
     test('method deleteArticleById exist', async () => {
@@ -348,6 +357,7 @@ describe('test ArticleController class', () => {
             title: 'a',
             abstract: 'a',
             content: 'a',
+            img:'a',
             Category: 'a'
         };
 
@@ -363,6 +373,7 @@ describe('test ArticleController class', () => {
                 title: 'a',
                 abstract: 'a',
                 content: 'a',
+                img: 'a',
                 Category: 'a'
             }),
         };
@@ -372,12 +383,14 @@ describe('test ArticleController class', () => {
             title: 'b',
             abstract: 'b',
             content: 'b',
+            img:'b',
             Category: 'b'
         };
         const oldValue = {
             title: 'a',
             abstract: 'a',
             content: 'a',
+            img:'a',
             Category: 'a'
         };
 

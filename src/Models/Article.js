@@ -6,6 +6,7 @@ const ArticleSchema = new Schema({
     title: String,
     abstract: { type: String, maxlength: 140},
     content: String,
+    img: String,
     date: { type: Date, default: Date.now},
     Category : { type: Schema.Types.ObjectId, ref: 'Category'}
 });
