@@ -137,6 +137,12 @@
             "required": true
           },
           {
+            "name": "Img",
+            "description": "L'url de l'image",
+            "in":"body",
+            "required": true
+          },
+          {
             "name": "Category",
             "description": "La catégorie",
             "in":"body",
